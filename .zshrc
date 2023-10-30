@@ -70,7 +70,10 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+  git
+  poetry
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -103,16 +106,20 @@ alias vvim=vim
 alias vim=nvim
 alias lotrMap=eog Pictures/lotr/middle_earth_map/images/dpi600-1.jpg
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dup='alacritty & disown'
 # pip search -> pip_search - re-enables pip search
-alias pip='function _pip(){
+alias pips='function _pip(){
     if [ $1 = "search" ]; then
         pip_search "$2";
     else pip "$@";
     fi;
 };_pip'
 
+alias vpy="source venv/bin/activate"
+
 export PATH="/home/john/.local/bin:$PATH"
 export PATH="/home/john/bin:$PATH"
 export PATH="/home/john/scripts:$PATH"
 export PATH="/home/john/.cargo/bin:$PATH"
+export PATH="/home/john/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin:$PATH" # Hacky I know... I'm not sure of a better way to do this
 eval "$(starship init zsh)"
