@@ -122,4 +122,6 @@ export PATH="/home/john/bin:$PATH"
 export PATH="/home/john/scripts:$PATH"
 export PATH="/home/john/.cargo/bin:$PATH"
 export PATH="/home/john/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin:$PATH" # Hacky I know... I'm not sure of a better way to do this
+
+export EDITOR="nvim"
 eval "$(starship init zsh)"
