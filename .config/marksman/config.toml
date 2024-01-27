@@ -1,0 +1,10 @@
+[core]
+markdown.file_extensions = ["md", "markdown", "qmd"]
+
+[completion]
+# The style of wiki links completion.
+# Other values include: 
+# * "title-slug"
+# * "file-stem" to complete using file name without an extension,
+# * "file-path-stem" same as above but using file path.
+wiki.style = "file-path-stem"

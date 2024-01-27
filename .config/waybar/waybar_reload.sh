@@ -1,7 +1,7 @@
 #!/bin/bash
 # Kill and restart waybar whenever its config files change
 
-CONFIG_FILES="$HOME/.config/waybar/config.jsonc $HOME/.config/waybar/style.css $HOME/.config/waybar/style.css"
+CONFIG_FILES="$HOME/.config/waybar/config.jsonc $HOME/.config/waybar/style.css $HOME/.config/waybar/theme.css"
 
 trap "killall waybar" EXIT
 

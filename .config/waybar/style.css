@@ -1,65 +1,76 @@
 @import "theme.css";
 * {
-    border: none;
-    border-radius: 0;
-    font-family: Cascadia Code Nerd Font;
-    font-size: 16px;
-    font-weight: bold;
+  border: none;
+  border-radius: 0;
+  font-family: Cascadia Code Nerd Font;
+  font-size: 16px;
+  font-weight: bold;
+  background: transparent;
 }
 
 window#waybar {
-    /*background: transparent;*/
-    background: @base;
-    color: @text;
-    border-radius: 16px;
-    /* margin can't be set here, it needs to be done with `margin` in the config */
+  /*background: transparent;*/
+  background: @base;
+  color: @text;
+  border-radius: 16px;
+  /* margin can't be set here, it needs to be done with `margin` in the config */
+}
+
+window.DP-3#waybar {
+  background: transparent;
 }
 
 tooltip {
-	background: @mantle;
+  background-color:@crust;
+  border-radius: 8px;
+  border: 1px solid @subtext0;
+  color: @text;
 }
+
 #workspaces button {
-    color: @lavender;
+  color: @subtext1;
 }
 
 #workspaces button.active {
-    color: @green;
+  color: @green;
 }
 #workspaces button.focused {
-    background-color: @red;
-    border-radius: 15px;
+  background-color: @red;
+  border-radius: 15px;
 }
 
 #workspaces button.urgent {
-    color: @mantle;
-    background-color: #fab387;
-    border-radius: 15px;
+  color: @mantle;
+  background-color: #fab387;
+  border-radius: 15px;
 }
 
 #workspaces button:hover {
-	color: @green;
+  color: @green;
+  border-radius: 7px;
 }
 
 #workspaces {
-	border-radius: 15px 0 0 15px;
-	margin-left: 15px;
+  border-radius: 15px 0 0 15px;
+  margin-left: 15px;
 }
 
 .modules-right {
-	border-radius: 15px;
+  border-radius: 15px;
   padding-right: 15px;
   padding-left: 10px;
   background-color: @mantle;
 }
 .modules-left {
-	border-radius: 15px;
+  border-radius: 15px;
   padding-right: 20px;
   background-color: @mantle;
 }
-#window{
+#window {
   font-weight: normal;
   font-size: 14px;
 }
+
 #clock,
 #cpu,
 #memory,
@@ -71,47 +82,62 @@ tooltip {
 #network,
 #tray,
 #custom-powermenu,
+#idle_inhibitor,
 #mpd {
   padding-left: 7px;
   padding-right: 10px;
 }
 
 #clock {
-    color: @mauve;
-    /* background-color: @mantle;
+  color: @green;
+  /* background-color: @mantle;
     padding-right:15px;
     padding-left:15px;
     border-radius: 15px; */
 }
 
 #pulseaudio {
-	color: @green;
+  color: @yellow;
 }
 
 #pulseaudio.muted {
   color: @red;
 }
 
-
 #bluetooth {
-    color: @blue;
+  color: @blue;
 }
 
 #battery {
-    color: @teal;
+  color: @teal;
 }
 
 #battery.charging {
-    color: @sky;
+  color: @teal;
 }
 
+#cpu {
+ color: @my_button;
+}
+#memory {
+ color: @my_button;
+}
+#temperature {
+ color: @my_button;
+}
+#idle_inhibitor{
+ color: @my_button;
+}
+
+
+
 #battery.warning:not(.charging) {
-    background-color: @yellow;
-    color: @red;
+  background-color: @yellow;
+  color: @red;
 }
 
 #network {
-	color: @yellow;
+  color: @peach;
   padding-right: 12px;
 }
 
@@ -120,7 +146,7 @@ tooltip {
 }
 
 #custom-powermenu {
-	color: @red;
-	border-radius: 0px 15px 15px 0px;
+  color: @red;
+  border-radius: 0px 15px 15px 0px;
   margin-right: 20px;
 }
