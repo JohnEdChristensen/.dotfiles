@@ -11,6 +11,7 @@ return {
 				integrations = {
 					diffview = true,
 				},
+        kind = "auto"
 			})
 		end,
 	},
@@ -48,7 +49,7 @@ return {
 		end,
 	},
 	-- github PRs and the like with gh-cli
-	-- { 'pwntester/octo.nvim', config = function()
-	--   require "octo".setup()
-	-- end },
+	{ 'pwntester/octo.nvim', config = function()
+	  require "octo".setup()
+	end },
 }

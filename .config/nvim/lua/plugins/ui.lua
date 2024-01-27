@@ -30,7 +30,7 @@ return {
             "%_cache",
             ".git/",
             "site_libs",
-            ".venv",
+            ".venv/*", -- may need to remove if I want to look at venvs!
           },
           layout_strategy = "flex",
           sorting_strategy = "ascending",
@@ -71,10 +71,10 @@ return {
             require("telescope.themes").get_dropdown(),
           },
           fzf = {
-            fuzzy = true,             -- false will only do exact matching
+            fuzzy = true,                   -- false will only do exact matching
             override_generic_sorter = true, -- override the generic sorter
-            override_file_sorter = true, -- override the file sorter
-            case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+            override_file_sorter = true,    -- override the file sorter
+            case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
           },
         },
       })
@@ -120,13 +120,23 @@ return {
     end,
   },
 
+  -- {
+  --   "nanozuki/tabby.nvim",
+  --   config = function()
+  --     require("tabby.tabline").use_preset("active_wins_at_end")
+  --   end,
+  -- },
+
   {
-    "nanozuki/tabby.nvim",
+    'akinsho/bufferline.nvim',
+    version = "*",
+    dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()
-      require("tabby.tabline").use_preset("active_wins_at_end")
-    end,
+      require("bufferline").setup {}
+    end
   },
 
+  --
   -- {
   --   'dstein64/nvim-scrollview',
   --   config = function()
@@ -152,7 +162,7 @@ return {
         },
         git = {
           enable = true,
-          ignore = false,
+          ignore = true,
           timeout = 500,
         },
         diagnostics = {
@@ -193,15 +203,86 @@ return {
       require("trouble").setup({})
     end,
   },
+  {
+    "HiPhish/rainbow-delimiters.nvim",
+    enabled = true,
+    config = function()
+      local highlight = {
+        'RainbowDelimiterYellow',
+        'RainbowDelimiterBlue',
+        'RainbowDelimiterGreen',
+        'RainbowDelimiterViolet',
+        'RainbowDelimiterRed',
+        'RainbowDelimiterOrange',
+        'RainbowDelimiterCyan',
 
-  -- {
-  --   "lukas-reineke/indent-blankline.nvim",
-  --   config = function()
-  --     require("ibl").setup({
-  --       indent = { char = "│" },
-  --     })
-  --   end,
-  -- },
+      }
+      local options = {
+        colours_override = function(palette)
+          return palette
+        end,
+        -- Include other necessary options here if needed
+      }
+      local theme = "dark" -- or "light", depending on your preference
+      local theme_colors = require("everforest.colours").generate_palette(options, theme)
+
+      -- Use the mapped colors
+      vim.api.nvim_set_hl(0, "RainbowRed", { fg = theme_colors.red })
+      vim.api.nvim_set_hl(0, "RainbowYellow", { fg = theme_colors.yellow })
+      vim.api.nvim_set_hl(0, "RainbowBlue", { fg = theme_colors.blue })
+      vim.api.nvim_set_hl(0, "RainbowOrange", { fg = theme_colors.orange })
+      vim.api.nvim_set_hl(0, "RainbowGreen", { fg = theme_colors.green })
+      vim.api.nvim_set_hl(0, "RainbowViolet", { fg = theme_colors.purple })
+      vim.api.nvim_set_hl(0, "RainbowCyan", { fg = theme_colors.aqua })
+      vim.api.nvim_set_hl(0, "RainbowRedScope", { fg = theme_colors.red })
+      vim.api.nvim_set_hl(0, "MyScope", { fg = theme_colors.purple })
+      -- vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+      -- vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+      -- vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+      -- vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+      -- vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+      -- vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+      -- vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+
+      local rainbow_delimiters = require("rainbow-delimiters")
+
+      vim.g.rainbow_delimiters = {
+        strategy = {
+          [''] = rainbow_delimiters.strategy['local'],
+        },
+        highlight =  highlight
+      }
+    end
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      -- change order to change change highlighting order
+      local hooks = require "ibl.hooks"
+      -- colored indents
+      --hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+      hooks.register(
+        hooks.type.WHITESPACE,
+        hooks.builtin.hide_first_space_indent_level)
+      hooks.register(
+        hooks.type.WHITESPACE,
+        hooks.builtin.hide_first_tab_indent_level)
+      require("ibl").setup({
+        -- in kitty.conf I added the follwoing to make the underline connect
+        -- to the | char. and have the same thickness as the default bar
+        -- modify_font underline_position +2
+        -- modify_font underline_thickness +1
+        -- indent = {char =  "▏"}, -- thinnest bar. see :help ibl.config.indent
+        --indent = { highlight = highlight}, --
+        scope = {
+          --highlight = "MyScope",
+          show_start = false,
+          show_end = false
+        }
+      })
+      --hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+    end,
+  },
 
   {
     "lukas-reineke/headlines.nvim",
@@ -224,7 +305,7 @@ return {
 
   {
     "3rd/image.nvim",
-    event="VeryLazy",
+    event = "VeryLazy",
     config = function()
       -- Requirements
       -- https://github.com/3rd/image.nvim?tab=readme-ov-file#requirements
@@ -319,6 +400,9 @@ return {
         print("magick luarock is not available")
         return
       end
+      if os.getenv("TERM") ~= "xterm-kitty" then
+        return
+      end
 
       require("image").setup({
         backend = backend,
@@ -334,7 +418,7 @@ return {
         max_width = 100,
         max_height = 40,
         editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
-        tmux_show_only_in_active_window = true, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
+        tmux_show_only_in_active_window = true,  -- auto show/hide images in the correct Tmux window (needs visual-activity off)
       })
     end,
   },

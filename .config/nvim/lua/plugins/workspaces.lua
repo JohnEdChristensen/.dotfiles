@@ -12,6 +12,11 @@ return {
 		config = function()
 			vim.opt.sessionoptions:append("localoptions") -- Save localoptions to session file
 			require("projections").setup({
+        workspaces = {
+          "~/dev",
+          "~/dev/python",
+        },
+        patterns = {".git","pyproject.toml"},
 				store_hooks = {
 					pre = function()
 						-- nvim-tree

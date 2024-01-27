@@ -377,7 +377,9 @@ return {
           },
         },
         root_dir = function(fname)
-          return util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(
+          --JEC this order matters! 
+          --For nested prjs, if the sub prj doesn't have .git if .git was first, it wouldn't be chosen
+          return util.root_pattern("pyproject.toml", "requirements.txt", ".git", "setup.py", "setup.cfg")(
             fname
           ) or util.path.dirname(fname)
         end,
@@ -385,6 +387,7 @@ return {
       -- Configure `ruff-lsp`.
       -- See: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#ruff_lsp
       -- For the default config, along with instructions on how to customize the settings
+      --
       require('lspconfig').ruff_lsp.setup {
         on_attach = on_attach,
         capabilities = capabilities,
@@ -642,7 +645,6 @@ return {
           },
         },
       })
-
       -- for friendly snippets
       require("luasnip.loaders.from_vscode").lazy_load()
       -- for custom snippets
@@ -650,6 +652,7 @@ return {
       -- link quarto and rmarkdown to markdown snippets
       luasnip.filetype_extend("quarto", { "markdown" })
       luasnip.filetype_extend("rmarkdown", { "markdown" })
+      --luasnip.add_snippets('supercollider', require'scnvim.utils'.get_snippets()) -- adds a lot of load time, and I don't know how to make this lazy load
     end,
   },
 

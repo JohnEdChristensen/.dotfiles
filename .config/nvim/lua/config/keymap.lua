@@ -28,6 +28,7 @@ end
 
 -- JEC
 imap("jk", "<esc>")
+
 --"This unsets the "last search pattern" register by hitting return
 nmap("<CR>" ,"<cmd>:noh<CR><CR>")
 
@@ -94,8 +95,11 @@ nmap("<c-h>", "<c-w>h")
 nmap("<c-l>", "<c-w>l")
 nmap("<c-j>", "<c-w>j")
 nmap("<c-k>", "<c-w>k")
-nmap("H", "<cmd>tabprevious<cr>")
-nmap("L", "<cmd>tabnext<cr>")
+
+-- nmap("H", "<cmd>bp<cr>")
+-- nmap("L", "<cmd>bn<cr>")
+nmap("<S-Tab>", "<cmd>bp<cr>")
+nmap("<Tab>", "<cmd>bn<cr>")
 
 local function toggle_light_dark_theme()
 	if vim.o.background == "light" then
@@ -223,6 +227,8 @@ wk.register({
 		c = { ":GitConflictRefresh<cr>", "conflict" },
 		g = { ":Neogit<cr>", "neogit" },
 		s = { ":Gitsigns<cr>", "gitsigns" },
+		il = { ":Octo issue list<cr>", "gh issue list" },
+		ic = { ":Octo issue create<cr>", "gh create issue" },
 		pl = { ":Octo pr list<cr>", "gh pr list" },
 		pr = { ":Octo review start<cr>", "gh pr review" },
 		wc = { ":lua require('telescope').extensions.git_worktree.create_git_worktree()<cr>", "worktree create" },
@@ -284,6 +290,8 @@ wk.register({
 	["<c-q>"] = { "<cmd>q<cr>", "close buffer" },
 	["<esc>"] = { "<cmd>noh<cr>", "remove search highlight" },
 	["n"] = { "nzzzv", "center search" },
+	["H"] = { "bp", "previous buffer" },
+	["L"] = { "bn", "next buffer" },
 	["gN"] = { "Nzzzv", "center search" },
 	["gl"] = { "<c-]>", "open help link" },
 	["gf"] = { ":e <cfile><CR>", "edit file" },

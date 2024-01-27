@@ -19,16 +19,3 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 		set_terminal_keymaps()
 	end,
 })
-
--- -- Define the augroup
--- local autosaveGroup = vim.api.nvim_create_augroup("AutoSave", { clear = true })
---
--- -- Set up autocmd within the group
--- vim.api.nvim_create_autocmd(
---     {"BufLeave", "FocusLost", "InsertLeave"},
---     {
---         pattern = "*",
---         command = "update",
---         group = autosaveGroup
---     }
--- )
