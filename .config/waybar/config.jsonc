@@ -21,9 +21,9 @@
       "pulseaudio",
       "bluetooth",
       "network",
-      // "cpu",
-      // "memory",
-      // "temperature",
+      "cpu",
+      "memory",
+      "temperature",
       "backlight",
       "keyboard-state",
       "battery"

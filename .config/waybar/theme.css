@@ -70,14 +70,6 @@
 @define-color rosewater #D3C6AA; /* nord12 */
 
 @define-color my_button @subtext0;
-@define-color blue     @my_button; /* nord9 */
-@define-color lavender @my_button; /* nord15 */
-@define-color teal     @my_button; /* nord7 */
-@define-color yellow   @my_button; /* nord13 */
-@define-color peach    @my_button; /* nord12 */
-@define-color red      @my_button; /* nord11 */
-@define-color mauve    @my_button; /* nord15 */
-@define-color pink     @my_button; /* nord15 */
 
 /* @define-color base   #1e1e2e;
 @define-color mantle #181825;

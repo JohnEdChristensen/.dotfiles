@@ -75,6 +75,7 @@ tooltip {
 #tray,
 #custom-powermenu,
 #mpd {
+  color: @my_button;
   padding-left: 7px;
   padding-right: 10px;
 }
@@ -87,38 +88,16 @@ tooltip {
     border-radius: 15px; */
 }
 
-#pulseaudio {
-  color: @yellow;
-}
-
-#pulseaudio.muted {
-  color: @red;
-}
-
-#bluetooth {
-  color: @blue;
-}
-
-#battery {
-  color: @teal;
-}
-
 #battery.charging {
   color: @teal;
 }
 
 #battery.warning:not(.charging) {
-  background-color: @yellow;
   color: @red;
 }
-
-#network {
-  color: @peach;
-  padding-right: 12px;
-}
-
-#backlight {
-  color: @pink;
+#battery.critical:not(.charging) {
+  background-color: @red;
+  color: @yellow;
 }
 
 #custom-powermenu {

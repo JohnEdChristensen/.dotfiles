@@ -1,3 +1,4 @@
+#zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -105,9 +106,58 @@ source $ZSH/oh-my-zsh.sh
 alias vvim=vim
 alias vim=nvim
 alias lotrMap=eog Pictures/lotr/middle_earth_map/images/dpi600-1.jpg
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-alias dup='alacritty & disown'
-# pip search -> pip_search - re-enables pip search
+#manage config files through some fancy git magic
+#alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+dotfiles() {
+    /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME "$@"
+}
+#get autocomplete for dotfiles command, _git doesn't work well for completing directories because of our custom directory flags confuse the autocompletion rules
+compdef _files dotfiles
+
+# pip auto complete?
+eval "`pip completion --zsh`"
+compctl -K _pip_completion pip3
+
+
+
+# workaround to get terminal colors using cheat https://github.com/cheat/cheat/issues/558
+#
+my_function() {
+  if [ $# -lt 2 ]
+  then
+    echo "Usage: $funcstack[1] <first-argument> <second-argument>"
+    return
+  fi
+
+  echo "First argument: $1"
+  echo "Second argument: $2"
+}
+
+
+mllm() {
+    llm prompt -m mixtral-largest "[INST] $1 [/INST]"
+}
+
+# `bat` everywhere
+cheat () {
+  if [ $# -lt 2 ]
+  then
+  #use 'command' to bypass normal shell lookup, this let's us override 'cheat'
+  command cheat "$@" | bat --theme=base16 --language=bash --style=plain
+  return
+  fi
+  command cheat "$@"
+}
+
+alias cat='bat -pp'
+alias less='bat --paging=always'
+
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANROFFOPT="-c"
+
+alias dup='kitty & disown'
+
+# pips search -> pip_search - re-enables pip search
 alias pips='function _pip(){
     if [ $1 = "search" ]; then
         pip_search "$2";
@@ -115,7 +165,28 @@ alias pips='function _pip(){
     fi;
 };_pip'
 
-alias vpy="source venv/bin/activate"
+#alias vpy="source venv/bin/activate"
+
+
+# auto enable venv on cd
+# function cd() {
+#   builtin cd "$@"
+#
+#   if [[ -z "$VIRTUAL_ENV" ]] ; then
+#     ## If env folder is found then activate the vitualenv
+#       if [[ -d ./.env ]] ; then
+#         source ./.env/bin/activate
+#       fi
+#   else
+#     ## check the current folder belong to earlier VIRTUAL_ENV folder
+#     # if yes then do nothing
+#     # else deactivate
+#       parentdir="$(dirname "$VIRTUAL_ENV")"
+#       if [[ "$PWD"/ != "$parentdir"/* ]] ; then
+#         deactivate
+#       fi
+#   fi
+# }
 
 export PATH="/home/john/.local/bin:$PATH"
 export PATH="/home/john/bin:$PATH"
@@ -123,5 +194,77 @@ export PATH="/home/john/scripts:$PATH"
 export PATH="/home/john/.cargo/bin:$PATH"
 export PATH="/home/john/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin:$PATH" # Hacky I know... I'm not sure of a better way to do this
 
+# local jupyterlab
+export JUPYTERLAB_DIR=$HOME/.local/share/jupyter/lab
+
+# enable vim bindings
+bindkey -v
+# map jk to <esc>
+bindkey -M viins 'jk' vi-cmd-mode
+
 export EDITOR="nvim"
+export TERMINAL="/usr/bin/alacritty"
+
+
+# `$ venv-mk myvirtualenv`  # creates venv under ~/.virtualenvs/
+# `$ venv myvirtualenv`     # activates venv
+# `$ deactivate` (ctrl+d) # deactivates venv 
+# `$ venv-rm myvirtualenv`  # removes venv
+# `$ venv-ls myvirtualenv`  # removes venv
+
+export VENV_HOME="$HOME/.virtualenvs"
+[[ -d $VENV_HOME ]] || mkdir $VENV_HOME
+
+venv-ls() {
+  tree -L 1 --noreport $VENV_HOME
+}
+
+venv() {
+  if [ $# -eq 0 ]
+    then
+      echo "Please provide venv name"
+      echo "Current Venvs:"
+      venv-ls
+    else
+      source "$VENV_HOME/$1/bin/activate"
+  fi
+}
+
+venv-mk() {
+  if [ $# -eq 0 ]
+    then
+      echo "Please provide venv name"
+      echo "Current Venvs:"
+      venv-ls
+    else
+      if test -d $VENV_HOME/$1;
+        then
+          echo "$1 already exsits"
+        else
+          python3 -m venv $VENV_HOME/$1
+          echo "Created new venv at $VENV_HOME/$1"
+          tput setaf 2
+          echo "Tip -- make a kernel like this: "
+          echo "python -m ipykernel install --user --name=$1"
+          tput sgr0
+      fi
+  fi
+}
+
+venv-rm() {
+  if [ $# -eq 0 ]
+    then
+      echo "Please provide venv name"
+      echo "Current Venvs:"
+      venv-ls
+    else
+      rm -r $VENV_HOME/$1
+  fi
+}
+#auto add new binaries to autocomplete
+zstyle ':completion:*' rehash true
+
 eval "$(starship init zsh)"
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#zprof
+[ -f /opt/mambaforge/etc/profile.d/conda.sh ] && source /opt/mambaforge/etc/profile.d/conda.sh
