@@ -108,9 +108,17 @@ return {
         },
         sections = {
           lualine_a = { "mode", macro_recording },
-          lualine_b = { "branch", "diff", "diagnostics" },
-          -- lualine_b = {},
+          lualine_b = { "branch", "diff", {
+            "diagnostics",
+            symbols = {
+              error = ' ',
+              warn = ' ',
+              hint = ' ',
+              info = ' '
+            }
+          } },
           lualine_c = { "searchcount" },
+          -- lualine_b = {},
           lualine_x = { "filetype" },
           lualine_y = { "progress" },
           lualine_z = { "location" },
@@ -154,7 +162,12 @@ return {
     keys = {
       { "<c-n>", ":NvimTreeToggle<cr>", desc = "toggle nvim-tree" },
     },
+    lazy = false,
     config = function()
+      vim.api.nvim_set_hl(0, 'NvimTreeDiagnosticWarnIcon', { fg = "#ffffff" })
+      vim.api.nvim_set_hl(0, 'NvimTreeDiagnosticErrorIcon', { fg = "#ffffff" })
+      vim.api.nvim_set_hl(0, 'NvimTreeDiagnosticInfoIcon', { fg = "#ffffff" })
+      vim.api.nvim_set_hl(0, 'NvimTreeDiagnosticHintIcon', { fg = "#ffffff" })
       require("nvim-tree").setup({
         disable_netrw = true,
         update_focused_file = {
@@ -200,7 +213,14 @@ return {
   {
     "folke/trouble.nvim",
     config = function()
-      require("trouble").setup({})
+      require("trouble").setup({
+        signs = {
+          error = " ",
+          warning = " ",
+          hint = " ",
+          information = " "
+        }
+      })
     end,
   },
   {
@@ -250,7 +270,7 @@ return {
         strategy = {
           [''] = rainbow_delimiters.strategy['local'],
         },
-        highlight =  highlight
+        highlight = highlight
       }
     end
   },
@@ -278,7 +298,8 @@ return {
           --highlight = "MyScope",
           show_start = false,
           show_end = false
-        }
+        },
+        indent = { repeat_linebreak = true }
       })
       --hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
     end,
@@ -421,5 +442,45 @@ return {
         tmux_show_only_in_active_window = true,  -- auto show/hide images in the correct Tmux window (needs visual-activity off)
       })
     end,
+  },
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      lsp = {
+        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+        },
+      },
+      -- you can enable a preset for easier configuration
+      presets = {
+        bottom_search = true,         -- use a classic bottom cmdline for search
+        command_palette = true,       -- position the cmdline and popupmenu together
+        long_message_to_split = true, -- long messages will be sent to a split
+        inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+        lsp_doc_border = true,        -- add a border to hover docs and signature help
+      },
+      -- views = {
+      --   cmdline_popup = {
+      --     border = {
+      --       style = "none",
+      --       padding = { 2, 3 },
+      --     },
+      --     filter_options = {},
+      --     win_options = {
+      --       winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+      --     },
+      --   },
+      -- },
+
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
   },
 }

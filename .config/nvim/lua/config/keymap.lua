@@ -144,7 +144,7 @@ wk.register({
 		R = { "rename" },
 		D = { vim.lsp.buf.type_definition, "type definition" },
 		a = { vim.lsp.buf.code_action, "coda action" },
-		e = { vim.diagnostic.open_float, "diagnostics" },
+		e = { vim.diagnostic.open_float, "show error/diagnostics" },
 		d = {
 			name = "diagnostics",
 			d = { vim.diagnostic.disable, "disable" },
@@ -152,6 +152,7 @@ wk.register({
 		},
 		g = { ":Neogen<cr>", "neogen docstring" },
 		s = { ":ls!<cr>", "list all buffers" },
+    t = {":Trouble<cr>", "troubles - show all diagnostics"}
 	},
 	o = {
 		name = "otter & code",
@@ -194,8 +195,14 @@ wk.register({
 		q = { "<cmd>Telescope quickfix<cr>", "quickfix" },
 		l = { "<cmd>Telescope loclist<cr>", "loclist" },
 		j = { "<cmd>Telescope jumplist<cr>", "marks" },
-		p = { "project" },
+		p = { "<cmd>Telescope neovim-project discover<cr>", "projects" },
 	},
+  p = {
+    name= "projects",
+		s = { "<cmd>Telescope neovim-project discover<cr>", "search" },
+		h = { "<cmd>Telescope neovim-project history<cr>", "history" },
+		l = { "<cmd>NeovimProjectLoadRecent<cr>", "latest/most recent" },
+  },
 	h = {
 		name = "help/debug/conceal",
 		c = {

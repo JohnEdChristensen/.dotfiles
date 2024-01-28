@@ -152,8 +152,10 @@ cheat () {
 alias cat='bat -pp'
 alias less='bat --paging=always'
 
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-export MANROFFOPT="-c"
+export PAGER=nvimpager
+export MANPAGER=nvimpager
+# export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+# export MANROFFOPT="-c"
 
 alias dup='kitty & disown'
 
