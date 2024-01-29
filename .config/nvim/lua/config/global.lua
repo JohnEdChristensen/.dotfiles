@@ -20,7 +20,7 @@ for type, icon in pairs(signs) do
     vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
 end
 -- shorten message to prevent pop-ups (enter to continue)
-vim.opt.shortmess:append("Aa")
+--vim.opt.shortmess:append("FWs")
 
 -- default aurto
 -- proper colors
