@@ -1,0 +1,16 @@
+network-manager-applet
+pavucontrol
+alacritty
+firefox
+gedit
+neovim
+wofi
+eog
+feh
+ttf-font-awesome-5
+thunar
+tumbler
+gvfs
+thunar-archive-plugin
+thunar-volman
+pandoc-bin

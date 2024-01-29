@@ -1,0 +1,8 @@
+mypy
+python-ruff
+pyright
+python-pipx
+ruff-lsp
+python-neovim
+git-delta
+github-cli
