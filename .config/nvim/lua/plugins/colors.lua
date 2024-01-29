@@ -1,8 +1,4 @@
 return {
-  { "shaunsingh/nord.nvim" },
-  { "folke/tokyonight.nvim" },
-  { "neanias/everforest-nvim" },
-  { "EdenEast/nightfox.nvim" },
   {
     -- theme
     "neanias/everforest-nvim",
@@ -14,16 +10,6 @@ return {
       })
     end,
   },
-  {
-    "catppuccin/nvim",
-    priority = 1000,
-  },
-
-  {
-    "olimorris/onedarkpro.nvim",
-    priority = 1000,
-  },
-
   -- color html colors
   {
     "NvChad/nvim-colorizer.lua",

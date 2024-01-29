@@ -7,7 +7,18 @@ vim.g.python3_host_prog=vim.fn.expand("~/.virtualenvs/neovim/bin/python3")
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 --/JEC
+--
+local signs = {
+    Error = " ",
+    Warn = " ",
+    Hint = " ",
+    Info = " "
+}
 
+for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
+end
 -- shorten message to prevent pop-ups (enter to continue)
 vim.opt.shortmess:append("Aa")
 

@@ -132,7 +132,7 @@ return {
       { "williamboman/mason-lspconfig.nvim" },
       { "williamboman/mason.nvim" },
       { "hrsh7th/cmp-nvim-lsp" },
-      { "folke/neodev.nvim",                opt = {} },
+      { "folke/neodev.nvim"},
       {
         "microsoft/python-type-stubs",
         cond = false
@@ -400,18 +400,18 @@ return {
         }
       }
 
-      -- lspconfig.jedi_language_server.setup({
-      --   on_attach = on_attach,
-      --   capabilities = capabilities,
-      --   flags = lsp_flags,
-      --   settings = {
-      --   },
-      --   root_dir = function(fname)
-      --     return util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(
-      --       fname
-      --     ) or util.path.dirname(fname)
-      --   end,
-      -- })
+      lspconfig.jedi_language_server.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        flags = lsp_flags,
+        settings = {
+        },
+        root_dir = function(fname)
+          return util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(
+            fname
+          ) or util.path.dirname(fname)
+        end,
+      })
 
       -- to install pylsp plugins run:
       -- cd ~/.local/share/nvim/mason/packages/python-lsp-server
