@@ -19,3 +19,5 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 		set_terminal_keymaps()
 	end,
 })
+
+vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
