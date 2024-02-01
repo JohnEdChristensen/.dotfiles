@@ -480,6 +480,13 @@ return {
           },
           opts = { skip = true },
         },
+        {
+          filter = {
+            event = "notify",
+            kind = "info",
+          },
+          opts = { skip = true },
+        },
       },
       -- views = {
       --   cmdline_popup = {

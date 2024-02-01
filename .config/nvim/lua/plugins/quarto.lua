@@ -368,11 +368,11 @@ return {
         flags = lsp_flags,
         settings = {
           python = {
-            stubPath = vim.fn.stdpath("data") .. "/lazy/python-type-stubs",
+            --stubPath = vim.fn.stdpath("data") .. "/lazy/python-type-stubs",
             analysis = {
-              autoSearchPaths = true,
-              useLibraryCodeForTypes = false,
-              diagnosticMode = "openFilesOnly",
+              --autoSearchPaths = true,
+              --useLibraryCodeForTypes = false,
+              --diagnosticMode = "openFilesOnly",
             },
           },
         },
@@ -400,18 +400,18 @@ return {
         }
       }
 
-      lspconfig.jedi_language_server.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        flags = lsp_flags,
-        settings = {
-        },
-        root_dir = function(fname)
-          return util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(
-            fname
-          ) or util.path.dirname(fname)
-        end,
-      })
+      -- lspconfig.jedi_language_server.setup({
+      --   on_attach = on_attach,
+      --   capabilities = capabilities,
+      --   flags = lsp_flags,
+      --   settings = {
+      --   },
+      --   root_dir = function(fname)
+      --     return util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(
+      --       fname
+      --     ) or util.path.dirname(fname)
+      --   end,
+      -- })
 
       -- to install pylsp plugins run:
       -- cd ~/.local/share/nvim/mason/packages/python-lsp-server
