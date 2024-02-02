@@ -1,7 +1,7 @@
 -- see keymaps for key config
 --JEC
 vim.opt.cursorline = true
-vim.g.python3_host_prog=vim.fn.expand("~/.virtualenvs/neovim/bin/python3")
+vim.g.python3_host_prog = vim.fn.expand("~/.virtualenvs/neovim/bin/python3")
 
 
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -9,31 +9,31 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 --/JEC
 --
 local signs = {
-    Error = " ",
-    Warn = " ",
-    Hint = " ",
-    Info = " "
+  Error = " ",
+  Warn = " ",
+  Hint = " ",
+  Info = " "
 }
 
 for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 -- shorten message to prevent pop-ups (enter to continue)
 --vim.opt.shortmess:append("FWs")
 
--- default aurto
+-- default qaurto
 -- proper colors
 vim.opt.termguicolors = true
 
 -- more opinionated
-vim.opt.number = true -- show linenumbers
-vim.opt.mouse = "a" -- enable mouse
+vim.opt.number = true                   -- show linenumbers
+vim.opt.mouse = "a"                     -- enable mouse
 vim.opt.mousefocus = true
 vim.opt.clipboard:append("unnamedplus") -- use system clipboard
 
-vim.opt.timeoutlen = 400 -- until which-key pops up
-vim.opt.updatetime = 250 -- for autocommands and hovers
+vim.opt.timeoutlen = 400                -- until which-key pops up
+vim.opt.updatetime = 250                -- for autocommands and hovers
 
 
 -- use spaces as tabs
@@ -92,6 +92,7 @@ vim.opt.splitbelow = true
 vim.opt.showtabline = 1
 
 --windowline
+-- show file at top of window
 vim.opt.winbar = "%f"
 
 --don't continue comments automagically

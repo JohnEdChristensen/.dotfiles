@@ -62,6 +62,8 @@ return {
           "latex",
           "html",
           "css",
+          "regex",
+          "jsdoc",
         },
         highlight = {
           enable = true,
@@ -132,7 +134,7 @@ return {
       { "williamboman/mason-lspconfig.nvim" },
       { "williamboman/mason.nvim" },
       { "hrsh7th/cmp-nvim-lsp" },
-      { "folke/neodev.nvim"},
+      { "folke/neodev.nvim" },
       {
         "microsoft/python-type-stubs",
         cond = false
@@ -199,16 +201,16 @@ return {
       }
 
       vim.lsp.handlers["textDocument/publishDiagnostics"] =
-      vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = true,
-        signs = true,
-        underline = true,
-        update_in_insert = false,
-      })
+          vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+            virtual_text = true,
+            signs = true,
+            underline = true,
+            update_in_insert = false,
+          })
       vim.lsp.handlers["textDocument/hover"] =
-      vim.lsp.with(vim.lsp.handlers.hover, { border = require("misc.style").border })
+          vim.lsp.with(vim.lsp.handlers.hover, { border = require("misc.style").border })
       vim.lsp.handlers["textDocument/signatureHelp"] =
-      vim.lsp.with(vim.lsp.handlers.signature_help, { border = require("misc.style").border })
+          vim.lsp.with(vim.lsp.handlers.signature_help, { border = require("misc.style").border })
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
@@ -286,7 +288,7 @@ return {
               -- add custom schemas here
               -- e.g.
               ["https://raw.githubusercontent.com/hits-mbm-dev/kimmdy/main/src/kimmdy/kimmdy-yaml-schema.json"] =
-                "kimmdy.yml",
+              "kimmdy.yml",
             },
           },
         },
@@ -309,9 +311,9 @@ return {
 
       local lua_library_files = vim.api.nvim_get_runtime_file("", true)
       local lua_plugin_paths = {}
-      local resource_path = get_quarto_resource_path()
+      --local resource_path = get_quarto_resource_path()
       if resource_path == nil then
-        vim.notify_once("quarto not found, lua library files not loaded")
+        --vim.notify_once("quarto not found, lua library files not loaded")
       else
         table.insert(lua_library_files, resource_path .. "/lua-types")
         table.insert(lua_plugin_paths, resource_path .. "/lua-plugin/plugin.lua")
@@ -333,11 +335,11 @@ return {
               plugin = lua_plugin_paths,
             },
             diagnostics = {
-              globals = { "vim", "quarto", "pandoc", "io", "string", "print", "require", "table" },
+              --globals = { "vim", "quarto", "pandoc", "io", "string", "print", "require", "table" },
               disable = { "trailing-space" },
             },
             workspace = {
-              library = lua_library_files,
+              --library = lua_library_files,
               checkThirdParty = false,
             },
             telemetry = {
@@ -368,16 +370,16 @@ return {
         flags = lsp_flags,
         settings = {
           python = {
-            stubPath = vim.fn.stdpath("data") .. "/lazy/python-type-stubs",
+            --stubPath = vim.fn.stdpath("data") .. "/lazy/python-type-stubs",
             analysis = {
-              autoSearchPaths = true,
-              useLibraryCodeForTypes = false,
-              diagnosticMode = "openFilesOnly",
+              --autoSearchPaths = true,
+              --useLibraryCodeForTypes = false,
+              --diagnosticMode = "openFilesOnly",
             },
           },
         },
         root_dir = function(fname)
-          --JEC this order matters! 
+          --JEC this order matters!
           --For nested prjs, if the sub prj doesn't have .git if .git was first, it wouldn't be chosen
           return util.root_pattern("pyproject.toml", "requirements.txt", ".git", "setup.py", "setup.cfg")(
             fname
@@ -400,18 +402,18 @@ return {
         }
       }
 
-      lspconfig.jedi_language_server.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        flags = lsp_flags,
-        settings = {
-        },
-        root_dir = function(fname)
-          return util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(
-            fname
-          ) or util.path.dirname(fname)
-        end,
-      })
+      -- lspconfig.jedi_language_server.setup({
+      --   on_attach = on_attach,
+      --   capabilities = capabilities,
+      --   flags = lsp_flags,
+      --   settings = {
+      --   },
+      --   root_dir = function(fname)
+      --     return util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(
+      --       fname
+      --     ) or util.path.dirname(fname)
+      --   end,
+      -- })
 
       -- to install pylsp plugins run:
       -- cd ~/.local/share/nvim/mason/packages/python-lsp-server
@@ -556,7 +558,7 @@ return {
       local has_words_before = function()
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
         return col ~= 0
-          and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+            and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
       end
 
       cmp.setup({
@@ -765,10 +767,9 @@ return {
       --vim.g.molten_output_win_max_height = 40
       --vim.g.molten_output_virt_lines = true
       vim.g.molten_auto_open_output = false
-      -- 
+      --
       vim.g.molten_virt_text_output = true
-      vim.g.molten_virt_lines_off_by_1 =  true
-
+      vim.g.molten_virt_lines_off_by_1 = true
     end,
     keys = {
       { "<leader>mi", ":MoltenInit<cr>",                desc = "molten init" },

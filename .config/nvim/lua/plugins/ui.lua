@@ -164,10 +164,10 @@ return {
     },
     lazy = false,
     config = function()
-      vim.api.nvim_set_hl(0, 'NvimTreeDiagnosticWarnIcon', { fg = "#ffffff" })
-      vim.api.nvim_set_hl(0, 'NvimTreeDiagnosticErrorIcon', { fg = "#ffffff" })
-      vim.api.nvim_set_hl(0, 'NvimTreeDiagnosticInfoIcon', { fg = "#ffffff" })
-      vim.api.nvim_set_hl(0, 'NvimTreeDiagnosticHintIcon', { fg = "#ffffff" })
+      -- vim.api.nvim_set_hl(0, 'NvimTreeDiagnosticWarnIcon', { fg = "#ffffff" })
+      -- vim.api.nvim_set_hl(0, 'NvimTreeDiagnosticErrorIcon', { fg = "#ffffff" })
+      -- vim.api.nvim_set_hl(0, 'NvimTreeDiagnosticInfoIcon', { fg = "#ffffff" })
+      -- vim.api.nvim_set_hl(0, 'NvimTreeDiagnosticHintIcon', { fg = "#ffffff" })
       require("nvim-tree").setup({
         disable_netrw = true,
         update_focused_file = {
@@ -446,6 +446,7 @@ return {
   {
     "folke/noice.nvim",
     event = "VeryLazy",
+    enabled = false,
     opts = {
       lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -467,19 +468,24 @@ return {
         {
           filter = {
             event = "msg_show",
-            kind = "",
-            find = "lines",
           },
-          opts = { skip = true },
+          view = "mini"
         },
-        {
-          filter = {
-            event = "msg_show",
-            kind = "",
-            find = "written",
-          },
-          opts = { skip = true },
-        },
+        -- {
+        --   filter = {
+        --     event = "msg_show",
+        --     kind = "",
+        --     find = "written",
+        --   },
+        --   opts = { skip = true },
+        -- },
+        -- {
+        --   filter = {
+        --     event = "notify",
+        --     kind = "info",
+        --   },
+        --   opts = { skip = true },
+        -- },
       },
       -- views = {
       --   cmdline_popup = {
